@@ -3,26 +3,31 @@ def ant( object , count ):
     if count == 0:
         return
     else:
-        next = zip( object , "" , [0 ,"",0] )
+        next = zip( object , "" , data())
         return ant( next , count - 1)
 
-def zip( object , result , data ):   # data[ 확인중인index , 연속으로 등장중인 문자 , 연속된 횟수 ]
-    if data[0] == len(object):
-        if data[2] > 0 :
-            result += str( data[2] )
+def zip( object , result , data ):
+    if data.index == len(object):
+        if data.count > 0 :
+            result += str( data.count )
         print( result )
         return result
     else:
-        if object[data[0]] != data[1]:
-            if data[2] > 0 :
-                result += str( data[2] )
-            data[1] = object[data[0]]
-            result += data[1]
-            data[2] = 1
+        if object[data.index] != data.char:
+            if data.count > 0 :
+                result += str( data.count )
+            data.char = object[data.index]
+            result += data.char
+            data.count = 1
         else:
-            data[2] += 1
-        data[0] += 1
+            data.count += 1
+        data.index += 1
         return zip( object , result , data )
 
+class data:
+    index = 0  # 문자열 object 에서 index 번째 char 확인중
+    char = ""  # char 이 연속으로 발견되는 중
+    count = 0  # 지금까지 char 은 count 번 등장
+
 print("1")
-ant("1",20)
+ant("1",20) #20번
